@@ -1,0 +1,54 @@
+.notification-item {
+  width: 100%;
+  height: 70px;
+  margin: 20px 10px;
+  border-radius: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  padding-left: 10px;
+}
+.notification-item strong {
+  font-family: Grandstander;
+  font-size: 22px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+}
+
+.notification-item span {
+  color: #797171;
+  text-align: right;
+  font-family: Grandstander;
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+}
+.noti_like {
+  border-radius: 20px;
+  border: 1px solid #fdbfda;
+  background: #fef9fc;
+}
+.noti_like strong {
+  color: #fdbfda;
+}
+.noti_cmt {
+  border-radius: 20px;
+  border: 1px solid #dbdaec;
+  background: rgba(233, 237, 246, 0.5);
+}
+
+.noti_cmt strong {
+  color: #c7c4f0;
+}
+
+.noti_fl {
+  border-radius: 20px;
+  border: 1px solid rgba(255, 139, 139, 0.81);
+  background: rgba(255, 139, 139, 0.12);
+}
+
+.noti_fl strong {
+  color: #ff8b8b;
+}

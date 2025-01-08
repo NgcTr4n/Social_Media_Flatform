@@ -1,0 +1,33 @@
+/* src/SearchBar.css */
+.search-bar-container {
+  position: relative;
+  width: 100%;
+  max-width: 500px;
+  height: 51px;
+  margin: auto;
+}
+
+input.form-control.search-bar {
+  padding-left: 50px;
+  border-radius: 10px;
+  border: 1px solid #f4b2c2;
+  background-color: #fce4ec;
+  color: #797171;
+  font-family: var(--main-fontfamily--text);
+  height: 50px;
+}
+
+.search-icon {
+  position: absolute;
+  left: 10px;
+  top: 45%;
+  transform: translateY(-50%);
+  color: #d47a94;
+  font-size: 20px;
+}
+.search-icon img {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  object-fit: cover;
+}

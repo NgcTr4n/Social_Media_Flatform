@@ -1,0 +1,86 @@
+.sidebar {
+  padding: 10px 0;
+  background: linear-gradient(to bottom right, #fef9fc 0%, #fff 39%, #fff 50%)
+      bottom right / 50% 50% no-repeat,
+    linear-gradient(to bottom left, #fef9fc 0%, #fff 39%, #fef9fc 50%) bottom
+      left / 50% 50% no-repeat,
+    linear-gradient(to top left, #fef9fc 0%, #fff 39%, #fef9fc 50%) top left /
+      50% 50% no-repeat,
+    linear-gradient(to top right, #fef9fc 0%, #fff 39%, #fef9fc 50%) top right /
+      50% 50% no-repeat;
+  box-shadow: 0px 4px 4px 0px var(--main--color--pink--1);
+  border-radius: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  transition: width 0.3s ease;
+}
+.sidebar__header {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  align-items: center;
+  width: 100%;
+  padding: 20px 0;
+}
+@media (min-width: 1024px) {
+  .sidebar {
+    width: 314px;
+  }
+}
+.side__avatar__main img {
+  border-radius: 100px;
+  background: lightgray 50% / cover no-repeat;
+  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+}
+.side__avatar__name {
+  padding-top: 15px;
+  text-align: center;
+  font-size: 22px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  font-family: var(--main-fontfamily--text);
+  color: var(--main--color--pink--1);
+}
+
+div.nav-item.active-item {
+  background: var(--main--color--pink--1);
+}
+div.nav-item p.sidebar-name {
+  font-family: var(--main--fontfamily--heading);
+}
+div.nav-item {
+  width: 220px;
+  height: 59px;
+  margin-top: 19px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-radius: 10px;
+  background: var(--main--color--pink--3);
+  padding: 3px 14px 3px;
+  border-radius: 10px;
+}
+
+div.nav-item,
+div.nav-icon i {
+  color: var(--main--color--pink--1);
+}
+div.nav-item.active-item,
+div.nav-item.active-item i {
+  color: #fff;
+}
+.nav-icon {
+  font-size: 1.5rem;
+}
+div.nav-item:hover,
+div.nav-icon i:hover {
+  color: #fff;
+  background: var(--main--color--pink--2);
+}
+.sidebar__btn {
+  position: absolute;
+  bottom: 0;
+  padding-bottom: 30px;
+}

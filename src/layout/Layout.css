@@ -1,0 +1,40 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+.layout-container {
+  background: var(--BG, #f6f6f6);
+  display: flex;
+  flex-direction: column;
+  color: #000;
+  overflow-y: hidden;
+  height: 100vh;
+}
+
+@media (min-width: 768px) {
+  .layout-container {
+    flex-direction: row;
+  }
+}
+
+.content {
+  width: 100%;
+  overflow-y: scroll;
+  /* flex: 1; */
+  /* position: relative; */
+}
+
+.fade-appear {
+  opacity: 0;
+  transform: translateY(20px);
+  animation: fadeIn 0.5s forwards;
+}
+
+.fade-appear-active {
+  opacity: 1;
+  transform: translateY(0);
+  transition: opacity 300ms, transform 300ms;
+}
+.main-content {
+  padding-top: 120px;
+}

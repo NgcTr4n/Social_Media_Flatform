@@ -1,0 +1,213 @@
+.card_account_header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  background: #e9edf6;
+  padding: 20px;
+  border-radius: 20px;
+  /* filter: blur(2px); */
+}
+
+.card_account_img {
+  position: relative;
+
+  text-align: center;
+}
+
+.card_account_img img {
+  display: block;
+  margin: 0 auto;
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+}
+.camera_icon {
+  width: 40px;
+  height: 40px;
+  position: absolute;
+  bottom: 0;
+  right: 10px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #fff;
+  border: 1px solid #dbdaec;
+}
+.camera_icon i {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 30px;
+  color: #dbdaec;
+}
+
+h3.card_account_label {
+  font-size: 30px;
+  color: #fdbfda;
+}
+
+.card_line {
+  border: 1px solid #fdbfda;
+  filter: blur(1px);
+}
+
+input.account-input-field {
+  border: none;
+  border-bottom: 1px solid #fdbfda;
+  background: #fff;
+  height: 40px;
+  color: #cfcfcf;
+  font-family: Grandstander;
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+}
+textarea.account-input-field {
+  padding-top: 10px;
+  border: none;
+  border-bottom: 1px solid #fdbfda;
+  background: #fff;
+  /* height: 40px; */
+  color: #cfcfcf;
+  font-family: Grandstander;
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+}
+label.account_label {
+  margin-top: 10px;
+  color: #797171;
+  font-family: Margarine;
+  font-size: 22px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+}
+small.text_alert {
+  color: #ff8b8b;
+  text-align: right;
+  font-family: "Noto Sans";
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+}
+
+.form-check-label {
+  font-size: 16px;
+  font-weight: 200;
+  color: #797171;
+  margin-left: 10px;
+  cursor: pointer;
+  font-family: Margarine;
+}
+
+input.form-check-input {
+  width: 20px;
+  height: 20px;
+  margin-right: 10px;
+  border: 2px solid #ff8b8b;
+  border-radius: 50%; /* Makes radio buttons round */
+  appearance: none; /* Removes default browser styles */
+  background-color: white;
+  cursor: pointer;
+}
+
+/* Add hover effect */
+input.form-check-input:hover {
+  border-color: #ff658b;
+}
+
+/* Style when checked */
+input.form-check-input:checked {
+  background-color: #ff8b8b;
+  border-color: #ff8b8b;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath fill='%23fff' d='M10.97 4.97a.75.75 0 0 1 1.07 1.05L7.5 11.5 4.47 8.47a.75.75 0 0 1 1.06-1.06L7.5 9.94l3.47-4.97z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 60%;
+}
+
+.form-check {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+input[type="date"] {
+  width: 100%;
+  padding: 10px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background-color: #fff;
+  color: #333;
+  outline: none;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Hover effect */
+input[type="date"]:hover {
+  border-color: #ff8b8b;
+}
+
+input[type="email"]:focus,
+input[type="password"]:focus,
+input[type="text"]:focus,
+input[type="date"]:focus,
+textarea.account-input-field:focus {
+  border-color: #fdbfda;
+  box-shadow: 0 0 5px rgba(255, 101, 139, 0.5);
+}
+/* Remove spinner (for browsers that show it) */
+input[type="date"]::-webkit-inner-spin-button,
+input[type="date"]::-webkit-calendar-picker-indicator {
+  display: none;
+  -webkit-appearance: none;
+}
+
+/* Placeholder text color */
+input[type="date"]::placeholder {
+  color: #aaa;
+  font-style: italic;
+}
+
+/* Disabled state */
+input[type="date"]:disabled {
+  background-color: #f5f5f5;
+  color: #aaa;
+  cursor: not-allowed;
+}
+
+button.account_btn {
+  padding: 10px 20px;
+  font-size: 16px;
+  font-weight: bold;
+  color: #fff;
+  background-color: #fdbfda;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
+button.account_btn:hover {
+  background-color: #fdedf5;
+  color: #fdbfda;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+button.account_btn:active {
+  background-color: #e9edf6;
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.2);
+  color: #dbdaec;
+}
+
+button.account_btn:disabled {
+  color: #fff;
+  background-color: #fdbfda;
+  cursor: not-allowed;
+  opacity: 0.7;
+}

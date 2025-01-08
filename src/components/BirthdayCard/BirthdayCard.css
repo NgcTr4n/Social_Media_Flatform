@@ -1,0 +1,120 @@
+.birthday-card {
+  animation: fadeIn 1s ease-out;
+}
+.birthday-card svg {
+  position: relative;
+  /* max-width: 300px;
+  border-radius: 15px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); */
+}
+
+.birthday-card-header {
+  position: absolute;
+  top: 0;
+  right: 100px;
+  background: #fdbfda;
+  width: 151px;
+  height: 63px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  text-align: center;
+  font-family: Margarine;
+  font-size: 22px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  z-index: 1;
+  animation: slideUp 0.8s ease-out forwards;
+
+  /* overflow: hidden; */
+}
+.birthday-card-header::before {
+  content: "";
+  width: 160px;
+  height: 70px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: #fdbfda;
+  filter: blur(30px);
+  border-radius: 50%;
+  z-index: -1;
+}
+.message {
+  position: absolute;
+  top: 55%;
+  left: 40%;
+  transform: translate(-30%, -80%);
+  color: #797171;
+  text-align: center;
+  font-family: Margarine;
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  animation: fadeInMessage 1.2s 0.5s forwards;
+}
+
+.highlight {
+  color: #fdbfda;
+  font-family: Grandstander;
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+}
+
+.cake-icon img {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  margin-left: 70px;
+  filter: drop-shadow(0px 4px 4px 0px rgba(0, 0, 0, 0.25));
+  /* animation: bounceIn 1s 1.5s forwards; */
+}
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slideUp {
+  from {
+    transform: translateY(20px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes fadeInMessage {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes bounceIn {
+  0% {
+    transform: translateY(30px);
+    opacity: 0;
+  }
+  60% {
+    transform: translateY(-10px);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(0);
+  }
+}

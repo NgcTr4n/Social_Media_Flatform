@@ -1,0 +1,28 @@
+div.modal-content {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, 50%);
+  color: #797171;
+  font-family: Grandstander;
+  border-radius: 20px;
+}
+div.modal-content p {
+  font-size: 13px;
+}
+div.modal-header {
+  background-color: #dbdaec;
+}
+div.modal-body {
+  padding: 20px;
+}
+div.modal-body a {
+  background-color: #e9edf6;
+  border-radius: 20px;
+  padding: 10px 10px 10px 15px;
+  margin: 10px 0;
+}
+
+div.modal-body a:hover {
+  background-color: #dbdaec;
+}

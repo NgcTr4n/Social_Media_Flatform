@@ -1,0 +1,16 @@
+.btn-form button {
+  width: 134px;
+  height: 48px;
+  border: none;
+  margin-top: 42px;
+}
+.btn-filled {
+  border-radius: 10px;
+  background: var(--main--color--pink--1);
+  color: #fff;
+  font-family: var(--main--fontfamily--heading);
+}
+.btn-filled:hover {
+  background: var(--main--color--pink--2);
+  color: var(--main--color--pink--1);
+}

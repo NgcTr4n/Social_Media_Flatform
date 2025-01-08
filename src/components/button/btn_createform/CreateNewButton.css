@@ -1,0 +1,18 @@
+.btn-formcreate {
+  padding-top: 5px;
+  width: 269px;
+  height: 48px;
+}
+div.btn-formcreate {
+  text-align: center;
+  color: #fdbfda;
+  text-align: center;
+  font-family: Margarine;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+}
+div.btn-formcreate a {
+  color: #ff8b8b;
+}

@@ -1,0 +1,207 @@
+.heart-icon {
+  transition: transform 0.3s ease;
+}
+
+.animate-heart {
+  animation: heart-bounce 0.5s forwards;
+}
+
+@keyframes heart-bounce {
+  0% {
+    transform: scale(1);
+  }
+  30% {
+    transform: scale(1.2);
+  }
+  50% {
+    transform: scale(1);
+  }
+  100% {
+    transform: scale(1.1);
+  }
+}
+.comment-list {
+  max-height: 310px;
+  overflow-y: auto;
+  margin-bottom: 10px;
+  overflow-x: hidden;
+  scrollbar-width: none;
+  scrollbar-color: #e9edf6 transparent;
+}
+.comment-list::-webkit-scrollbar {
+  width: 8px; /* Độ rộng của scrollbar */
+}
+.comment-list::-webkit-scrollbar-thumb {
+  background-color: #cfcfcf; /* Màu của scrollbar */
+  border-radius: 10px;
+}
+
+.comment-list::-webkit-scrollbar-track {
+  background: transparent; /* Màu nền của scrollbar track */
+}
+.comment-item {
+  width: 95%;
+  height: auto;
+  padding: 10px;
+  background-color: #fff;
+  border-radius: 20px;
+  margin: 10px;
+}
+.comment-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+/* Form bình luận */
+.comment-form {
+  background: #dbdaec;
+  border-radius: 20px;
+  padding: 20px;
+  width: 750px;
+  max-width: 90%;
+  min-height: 500px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+/* Hiệu ứng slide-in */
+@keyframes slideIn {
+  from {
+    transform: translateY(100%);
+  }
+  to {
+    transform: translateY(0);
+  }
+}
+
+/* Hiệu ứng slide-out */
+@keyframes slideOut {
+  from {
+    transform: translateY(0);
+  }
+  to {
+    transform: translateY(150%);
+  }
+}
+.comment-icon {
+  transition: transform 0.2s ease;
+}
+
+.comment-icon:active {
+  transform: scale(1.2);
+}
+
+/* Hiệu ứng bounce cho icon */
+@keyframes bounce {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.2);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+/* Animation classes */
+.animate-slideIn {
+  animation: slideIn 0.3s forwards;
+}
+
+.animate-slideOut {
+  animation: slideOut 0.3s forwards;
+}
+
+/* Nút đóng */
+.close-button {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: none;
+  border: none;
+  font-size: 20px;
+  cursor: pointer;
+  width: 40px;
+  height: 40px;
+  background: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+}
+
+.close-button i {
+  font-size: 40px;
+  color: #797171;
+}
+.post_comment {
+  width: 95%;
+  position: absolute;
+  bottom: 0;
+  margin-bottom: 20px;
+}
+input.comment-input {
+  width: 100%;
+  max-width: 100%;
+  height: 50px;
+  padding: 10px;
+  border: none;
+  border-radius: 20px;
+  outline: none;
+  color: #797171;
+  font-family: Grandstander;
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+}
+
+button.comment-submit {
+  width: 100%;
+  height: 50px;
+  border: none;
+  background: transparent;
+}
+button.comment-submit i {
+  font-size: 30px;
+  color: #e9edf6;
+}
+button.comment-submit i:hover {
+  color: #fdbfda;
+}
+@keyframes buttonBounce {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.1);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+i.icon-animate {
+  animation: buttonBounce 0.3s ease;
+}
+/* Animation cho comment-item */
+@keyframes fadeInSlideUp {
+  0% {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.comment-animate {
+  animation: fadeInSlideUp 0.5s ease;
+}
