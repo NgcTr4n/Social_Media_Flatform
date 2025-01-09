@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from "react";
 import "./ChatApp.css";
 import ava1 from "../../assets/ava/ava1.jpg";
+import { useTheme } from "../../contexts/ThemeContext";
 
 interface Contact {
   name: string;
   avatar: string;
-  messages: { text: string; sender: boolean }[];
+  messages: { text: string; sender: boolean; timestamp: string }[];
 }
 
 interface SidebarMessageProps {
@@ -17,6 +18,8 @@ const SidebarMessage: React.FC<SidebarMessageProps> = ({
   contacts,
   onSelectContact,
 }) => {
+  const { theme } = useTheme();
+
   const [activeIndex, setActiveIndex] = useState<number | null>(null);
   const [visibleIndex, setVisibleIndex] = useState<Set<number>>(new Set());
   const [scrollDirection, setScrollDirection] = useState<string | null>(null);
@@ -75,7 +78,9 @@ const SidebarMessage: React.FC<SidebarMessageProps> = ({
           <div
             key={index}
             id={String(index)}
-            className={`contact ${activeIndex === index ? "active" : ""} 
+            className={`contact ${
+              theme === "dark" ? "dark-theme" : "light-theme"
+            } ${activeIndex === index ? "active" : ""} 
               // ${visibleIndex.has(index) ? "visible" : ""} 
               // ${scrollDirection === "down" ? "scroll-down" : ""}
               // ${scrollDirection === "up" ? "scroll-up" : ""}

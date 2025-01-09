@@ -12,6 +12,7 @@ import {
 } from "../../features/Account/accountSlice";
 import { fetchUser, updateUser } from "../../features/Account/userSlice";
 import { useAppSelector } from "../../hooks/hooks";
+import { useTheme } from "../../contexts/ThemeContext";
 
 interface Account {
   id: string;
@@ -26,6 +27,8 @@ interface Account {
 }
 
 const Account = () => {
+  const { theme } = useTheme();
+
   const dispatch: AppDispatch = useDispatch();
 
   const [showPassword, setShowPassword] = useState(false);
@@ -113,11 +116,13 @@ const Account = () => {
             padding: "20px",
             height: "100%",
             border: "none",
-            backgroundColor: "#FEF9FC",
+            backgroundColor: theme === "light" ? "#FEF9FC" : "#F3F3FF",
             borderRadius: "20px",
             marginBottom: "50px",
             boxShadow:
-              "#FDEDF5 0px 8px 24px, #FDEDF5 0px 16px 56px,#fff 0px 24px 80px",
+              theme === "light"
+                ? "#FDEDF5 0px 8px 24px, #FDEDF5 0px 16px 56px,#fff 0px 24px 80px"
+                : "#B8C9F4 0px 8px 24px, #B8C9F4 0px 16px 56px,#fff 0px 24px 80px",
           }}
         >
           <div className="card_account_header">
@@ -146,7 +151,14 @@ const Account = () => {
           </div>
           <Row className="mt-5">
             <Col xs="5">
-              <h3 className="card_account_label">Personal Information</h3>
+              <h3
+                className="card_account_label"
+                style={{
+                  color: theme === "light" ? "#FDBFDA" : "#B8C9F4",
+                }}
+              >
+                Personal Information
+              </h3>
               <hr className="card_line" />
             </Col>
             <Col xs="7">
@@ -234,7 +246,12 @@ const Account = () => {
                   />
                 </Form.Group>
               </Form>
-              <button className="mt-3 account_btn" onClick={handleSave}>
+              <button
+                className={`account_btn mt-3 ${
+                  theme === "dark" ? "dark-theme" : "light-theme"
+                }`}
+                onClick={handleSave}
+              >
                 Save
               </button>
             </Col>

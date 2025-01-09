@@ -114,6 +114,18 @@ interface Notification {
   action: string;
   userId: string; // The ID of the user this notification is for
 }
+interface Message {
+  text: string;
+  sender: boolean;
+  timestamp: string;
+}
+interface Contact {
+  // id: string;
+  contactId: string;
+  username: string;
+  avatar: string;
+  messages: Message[];
+}
 interface Account {
   id: string;
   username: string;
@@ -125,6 +137,8 @@ interface Account {
   biography?: string;
   avatar: string;
   notification?: Notification[];
+  contacts?: { [key: string]: Contact };
+  messages?: Message[];
   postArticle?: {
     id: string;
     content: string;
@@ -136,59 +150,6 @@ interface Account {
   followers?: string[];
   following?: string[];
 }
-
-// export const selectCurrentUser = (state: { account: AccountState }) =>
-//   state.account.currentUser;
-
-// export const toggleLikePost = createAsyncThunk(
-//   "account/toggleLikePost",
-//   async ({
-//     accountId,
-//     postId,
-//     userId,
-//   }: {
-//     accountId: string;
-//     postId: string;
-//     userId: string;
-//   }) => {
-//     const docRef = doc(db, "account", accountId);
-//     const docSnapshot = await getDoc(docRef);
-
-//     if (!docSnapshot.exists()) {
-//       throw new Error("Account document not found");
-//     }
-
-//     const data = docSnapshot.data();
-//     const postArticle = data.postArticle || [];
-
-//     const postIndex = postArticle.findIndex(
-//       (post: { id: string }) => post.id === postId
-//     );
-
-//     if (postIndex === -1) {
-//       throw new Error("Post not found");
-//     }
-
-//     const post = postArticle[postIndex];
-//     const likes = post.likes || [];
-
-//     // Check if the user already liked the post
-//     let updatedLikes: string[];
-//     if (likes.includes(userId)) {
-//       updatedLikes = likes.filter((id: string) => id !== userId);
-//     } else {
-//       updatedLikes = [...likes, userId];
-//     }
-
-//     postArticle[postIndex].likes = updatedLikes;
-
-//     // Update Firestore
-//     await updateDoc(docRef, { postArticle });
-
-//     // Return updated data
-//     return { accountId, postId, likes: updatedLikes };
-//   }
-// );
 
 interface AccountState {
   account: Account[];
@@ -427,6 +388,7 @@ export const updatePostLikes = createAsyncThunk(
     }
   }
 );
+
 // Thunk to save a notification
 export const saveNotification = createAsyncThunk(
   "account/saveNotification",
@@ -447,16 +409,12 @@ export const saveNotification = createAsyncThunk(
       userId,
     };
 
-    // Save the notification to Firestore
     const docRef = await addDoc(collection(db, "notifications"), notification);
 
-    // Return the notification data with the generated ID
     return { id: docRef.id, ...notification }; // Attach the Firestore-generated ID
   }
 );
-// Thunk to fetch notifications for a specific user
 
-// Thunk to fetch a single account by ID
 export const fetchAccountById = createAsyncThunk<Account, string>(
   "account/fetchAccountById",
   async (id: string) => {
@@ -468,6 +426,166 @@ export const fetchAccountById = createAsyncThunk<Account, string>(
     } else {
       throw new Error("Account not found");
     }
+  }
+);
+export const addMessagesToContact = createAsyncThunk(
+  "account/addMessagesToContact",
+  async (
+    {
+      currentUserId,
+      contactId,
+      messages,
+    }: {
+      currentUserId: string;
+      contactId: string;
+      messages: Message[];
+    },
+    { rejectWithValue }
+  ) => {
+    try {
+      // Reference to the current user's document in Firestore
+      const currentUserRef = doc(db, "account", currentUserId);
+      const currentUserSnapshot = await getDoc(currentUserRef);
+      console.log("Current User Snapshot:", currentUserSnapshot);
+
+      if (!currentUserSnapshot.exists()) {
+        throw new Error("Current user not found");
+      }
+
+      const currentUser = currentUserSnapshot.data() as Account;
+
+      // Initialize contacts if not present
+      if (!currentUser.contacts) {
+        currentUser.contacts = {};
+      }
+
+      console.log("Current User Contacts:", currentUser.contacts);
+      console.log("Looking for Contact ID:", contactId);
+
+      // Find the contact from the current user's contacts
+      let contact = currentUser.contacts[contactId];
+      if (!contact) {
+        console.log("Contact not found. Creating new contact...");
+
+        contact = {
+          contactId: contactId,
+          messages: [], // Start with an empty message array
+          username: contactId,
+          avatar: "",
+        };
+
+        currentUser.contacts[contactId] = contact;
+
+        // Update Firestore with the new contact
+        await updateDoc(currentUserRef, {
+          [`contacts.${contactId}`]: contact,
+        });
+
+        console.log("New contact added to Firestore:", contact);
+      }
+
+      // Update the contact's messages for the current user
+      const updatedContactForSender = {
+        ...contact,
+        messages: [...(contact.messages || []), ...messages], // Add new messages to the existing ones
+      };
+
+      // Update the current user's contacts with the new message
+      await updateDoc(currentUserRef, {
+        [`contacts.${contactId}`]: updatedContactForSender,
+      });
+
+      console.log(
+        "Updated contact with new messages for sender:",
+        updatedContactForSender
+      );
+
+      // Now, update the contact's document (the recipient)
+      const contactRef = doc(db, "account", contactId);
+      const contactSnapshot = await getDoc(contactRef);
+      console.log("Contact Snapshot:", contactSnapshot);
+
+      if (!contactSnapshot.exists()) {
+        throw new Error("Contact user not found");
+      }
+
+      const contactUser = contactSnapshot.data() as Account;
+
+      // Initialize contacts for the contact if not present
+      if (!contactUser.contacts) {
+        contactUser.contacts = {};
+      }
+
+      // Find or create the contact in the recipient's contacts
+      let contactForReceiver = contactUser.contacts[currentUserId];
+      if (!contactForReceiver) {
+        contactForReceiver = {
+          contactId: currentUserId,
+          messages: [], // Start with an empty message array
+          username: currentUser.username,
+          avatar: currentUser.avatar,
+        };
+
+        contactUser.contacts[currentUserId] = contactForReceiver;
+
+        // Update Firestore with the new contact for the recipient
+        await updateDoc(contactRef, {
+          [`contacts.${currentUserId}`]: contactForReceiver,
+        });
+
+        console.log(
+          "New contact added to recipient's Firestore:",
+          contactForReceiver
+        );
+      }
+
+      // Update the contact's messages for the recipient
+      const updatedContactForReceiver = {
+        ...contactForReceiver,
+        messages: [...(contactForReceiver.messages || []), ...messages],
+      };
+
+      // Update the recipient's contacts with the new message
+      await updateDoc(contactRef, {
+        [`contacts.${currentUserId}`]: updatedContactForReceiver,
+      });
+
+      console.log(
+        "Updated contact with new messages for the recipient:",
+        updatedContactForReceiver
+      );
+
+      return { currentUserId, contactId, messages };
+    } catch (error) {
+      console.error("Error adding message to Firestore:", error);
+      return rejectWithValue((error as Error).message);
+    }
+  }
+);
+
+export const fetchContacts = createAsyncThunk(
+  "account/fetchContacts",
+  async (currentUserId: string) => {
+    const currentUserRef = doc(db, "account", currentUserId);
+    const currentUserSnapshot = await getDoc(currentUserRef);
+
+    if (!currentUserSnapshot.exists()) {
+      throw new Error("Current user not found");
+    }
+
+    const currentUser = currentUserSnapshot.data() as Account;
+    const fetchedContacts = Object.entries(currentUser.contacts || {}).map(
+      ([contactId, contactData]) => ({
+        name: contactData.username,
+        avatar: contactData.avatar,
+        messages: contactData.messages.map((msg) => ({
+          ...msg,
+          sender: msg.sender, // Keep the original boolean value for sender
+        })),
+      })
+    );
+
+    return fetchedContacts;
   }
 );
 
@@ -703,6 +821,32 @@ const accountSlice = createSlice({
       .addCase(saveNotification.rejected, (state, action) => {
         state.loading = false;
         state.error = action.error.message ?? "Error saving notification";
+      })
+      .addCase(addMessagesToContact.fulfilled, (state, action) => {
+        const { currentUserId, contactId, messages } = action.payload;
+
+        // Log the account and contacts for debugging
+        const currentUser = state.account.find(
+          (acc) => acc.id === currentUserId
+        );
+        console.log("Current User in State:", currentUser);
+
+        if (currentUser) {
+          const contact = currentUser.contacts?.[contactId];
+          console.log("Found Contact:", contact);
+
+          if (contact) {
+            const updatedMessages = [...(contact.messages || []), ...messages];
+
+            currentUser.contacts = {
+              ...currentUser.contacts,
+              [contactId]: {
+                ...contact,
+                messages: updatedMessages,
+              },
+            };
+          }
+        }
       });
   },
 });

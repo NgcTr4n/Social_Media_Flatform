@@ -1,8 +1,16 @@
 // src/pages/auth/SignUp.tsx
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { createUserWithEmailAndPassword } from "firebase/auth";
+import {
+  createUserWithEmailAndPassword,
+  signInWithPopup,
+  GoogleAuthProvider,
+  UserCredential,
+  getAuth,
+  fetchSignInMethodsForEmail,
+} from "firebase/auth";
 import { auth } from "../../services/firebase";
+import ava from "../../assets/ava/avatar.png";
 import { useDispatch } from "react-redux";
 import { uploadData } from "../../features/Account/accountSlice";
 import FilledButton from "../../components/button/filled_button/FilledButton";
@@ -11,8 +19,11 @@ import "./Auth.css";
 import { AppDispatch } from "../../app/store";
 import { useAppSelector } from "../../hooks/hooks";
 import ImageUploader from "../../components/imageupload/ImageUploader";
+import logo_google from "../../assets/logo/logo_gg.png";
+import { useTheme } from "../../contexts/ThemeContext";
 
 const SignUp = () => {
+  const { theme } = useTheme();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
@@ -29,6 +40,62 @@ const SignUp = () => {
   const [previewImage, setPreviewImage] = useState<string | null>(null);
   const [labelText, setLabelText] = useState<string>("Drop your image here");
   const [isAnimating, setIsAnimating] = useState<boolean>(false);
+  const urlToFile = async (
+    url: string,
+    filename: string,
+    mimeType: string
+  ): Promise<File> => {
+    const res = await fetch(url);
+    const blob = await res.blob();
+    return new File([blob], filename, { type: mimeType });
+  };
+  const handleGoogleSignUp = async () => {
+    const provider = new GoogleAuthProvider();
+    try {
+      const result: UserCredential = await signInWithPopup(auth, provider);
+      const user = result.user;
+
+      // Set fallback values in case `displayName` or `photoURL` is `null`
+      const username = user.displayName || "Anonymous"; // Default to 'Anonymous' if null
+      let avatar: File | null = null;
+
+      // Check if photoURL exists and convert it to a File object
+      if (user.photoURL) {
+        console.log("photoURL:", user.photoURL);
+        avatar = await urlToFile(user.photoURL, "avatar.png", "image/png"); // Convert URL to File
+      } else {
+        console.log("No photoURL, using default avatar.");
+        avatar = new File([], ava, { type: "image/png" }); // Fallback avatar
+      }
+
+      // Dispatch user data to Redux store
+      console.log("Dispatching user data:", {
+        username,
+        email: user.email,
+        avatar,
+      });
+      dispatch(
+        uploadData({
+          username: username,
+          email: user.email || "",
+          avatar: avatar,
+          password: "",
+          confirmPassword: "",
+        })
+      );
+
+      // Navigate after dispatching data
+      console.log("Navigating to home...");
+      navigate("/home"); // Redirect to home or dashboard
+    } catch (error) {
+      console.error("Error signing up with Google:", error);
+      alert(
+        "Google sign-up failed: " +
+          (error instanceof Error ? error.message : error)
+      );
+    }
+  };
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (password !== confirmPassword) {
@@ -68,6 +135,7 @@ const SignUp = () => {
       alert("Đăng ký thất bại: " + error);
     }
   };
+
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const selectedFile = e.target.files?.[0];
     if (selectedFile) {
@@ -411,6 +479,20 @@ const SignUp = () => {
           </div>
         )}{" "}
         <FilledButton type="submit">Sign Up</FilledButton>
+        <div className="google-signup-container">
+          <button onClick={handleGoogleSignUp} className="google-signin-button">
+            <img
+              style={{
+                objectFit: "cover",
+                width: "40px",
+                height: "40px",
+              }}
+              src={logo_google}
+              alt=""
+            />{" "}
+            <span> Sign In with Google</span>
+          </button>
+        </div>
       </form>
     </div>
   );

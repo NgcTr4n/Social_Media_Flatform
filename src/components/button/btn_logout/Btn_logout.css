@@ -1,19 +1,21 @@
 .btn_logout {
   position: relative;
-  color: var(--main--color--pink--1);
   text-transform: uppercase;
 }
-
+.btn_logout.light-theme {
+  color: var(--main--color--pink--1);
+}
+.btn_logout.dark-theme {
+  color: #b8c9f4;
+}
 .btn_logout button {
   position: relative;
   z-index: 2;
   width: 220px;
   height: 59px;
   border-radius: 10px;
-  border: 1px solid var(--main--color--pink--2);
   background: transparent;
   cursor: pointer;
-  color: var(--main--color--pink--2);
   text-align: center;
   font-family: var(--main--fontfamily--heading);
   font-size: 22px;
@@ -22,8 +24,16 @@
   line-height: normal;
   text-transform: uppercase;
 }
-
-.btn_logout::before {
+.light-theme .btn_logout button {
+  color: var(--main--color--pink--2);
+  border: 1px solid var(--main--color--pink--2);
+}
+.dark-theme .btn_logout button {
+  color: #d7e5ff;
+  border: 1px solid #d7e5ff;
+}
+.dark-theme .btn_logout::before,
+.light-theme .btn_logout::before {
   content: "";
   position: absolute;
   top: 0;

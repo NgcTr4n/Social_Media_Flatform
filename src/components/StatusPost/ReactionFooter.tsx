@@ -8,6 +8,7 @@ import "./ReactionFooter.css";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "../../app/store";
 import { addComment, fetchAccount } from "../../features/Account/accountSlice";
+import { useTheme } from "../../contexts/ThemeContext";
 
 interface ReactionFooterProps {
   likes: number;
@@ -46,6 +47,8 @@ const ReactionFooter: React.FC<ReactionFooterProps> = ({
   accountId,
   commentsList,
 }) => {
+  const { theme } = useTheme();
+
   const [isHeartActive, setIsHeartActive] = useState(false);
   const [isAnimating, setIsAnimating] = useState(false);
   const [showComments, setShowComments] = useState(false);
@@ -212,7 +215,7 @@ const ReactionFooter: React.FC<ReactionFooterProps> = ({
                       style={{
                         fontWeight: "bold",
                         marginBottom: "4px",
-                        color: "#FDBFDA",
+                        color: theme === "light" ? "#FDBFDA" : "#B8C9F4",
                       }}
                     >
                       <span>

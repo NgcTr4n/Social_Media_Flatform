@@ -1,5 +1,6 @@
 import React from "react";
 import "./FilledButton.css";
+import { useTheme } from "../../../contexts/ThemeContext";
 
 interface ButtonProps {
   btn_name?: string; // Optional if needed
@@ -14,8 +15,12 @@ const FilledButton: React.FC<ButtonProps> = ({
   type,
   children,
 }) => {
+  const { theme } = useTheme(); // Lấy theme từ context
+
   return (
-    <div className="btn-form">
+    <div
+      className={`btn-form ${theme === "dark" ? "dark-theme" : "light-theme"}`}
+    >
       <button onClick={onClick} type={type} className="btn-filled">
         {children || btn_name}
       </button>

@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
 import "./Sidebar.css";
 import logo from "../../assets/logo/logo.png";
+import logo_2 from "../../assets/logo/logo2.png";
+
 import avatar from "../../assets/ava/ava1.jpg";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import Btn_logout from "../button/btn_logout/Btn_logout";
@@ -8,6 +10,7 @@ import { auth } from "../../services/firebase";
 import { AppDispatch } from "../../app/store";
 import { useDispatch } from "react-redux";
 import { fetchAccountByEmail } from "../../features/Account/accountSlice";
+import { useTheme } from "../../contexts/ThemeContext";
 interface Account {
   id: string;
   email: string;
@@ -53,6 +56,7 @@ const navLinks: NavLink[] = [
 ];
 const Sidebar = () => {
   const dispatch: AppDispatch = useDispatch();
+  const { theme } = useTheme();
 
   const { pathname } = useLocation();
   const [hoveredMenu, setHoveredMenu] = useState<string | null>(null);
@@ -105,11 +109,13 @@ const Sidebar = () => {
     navigate(`/accounts/${formState.id}`);
   };
   return (
-    <div className="sidebar">
+    <div
+      className={`sidebar ${theme === "dark" ? "dark-theme" : "light-theme"}`}
+    >
       <div className="sidebar__header">
         <div className="sidebar__logo">
           <img
-            src={logo}
+            src={theme === "dark" ? logo_2 : logo}
             style={{ width: "160px", height: "90px" }}
             alt="Logo"
           />

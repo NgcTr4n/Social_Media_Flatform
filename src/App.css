@@ -44,8 +44,13 @@ div.signin {
 div.content {
   overflow-x: hidden;
   width: 100%;
-  background: linear-gradient(180deg, #fff 80.58%, #fdedf5 100.58%);
   overflow-y: auto;
   scrollbar-width: thin;
   scrollbar-color: #e9edf6 transparent;
+}
+.light-theme div.content {
+  background: linear-gradient(180deg, #fff 80.58%, #fdedf5 100.58%);
+}
+.dark-theme div.content {
+  background: linear-gradient(180deg, #fff 80.58%, #f3f3ff 100.58%);
 }

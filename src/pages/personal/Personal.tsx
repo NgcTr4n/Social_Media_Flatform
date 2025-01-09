@@ -18,6 +18,7 @@ import {
   toggleFollowUser,
   updatePostLikes,
 } from "../../features/Account/accountSlice";
+import { useTheme } from "../../contexts/ThemeContext";
 type Like = {
   id: string;
   email: string;
@@ -57,6 +58,8 @@ interface Account {
   postArticle?: Post[];
 }
 const Personal = () => {
+  const { theme } = useTheme();
+
   const navigate = useNavigate();
   const { id } = useParams<{ id: string }>();
 
@@ -355,7 +358,7 @@ const Personal = () => {
             borderRadius: "20px",
             padding: "20px",
             border: "none",
-            background: "#FEF9FC",
+            background: theme === "light" ? "#FEF9FC" : "#F3F3FF",
           }}
         >
           <Card.Body>
@@ -379,7 +382,7 @@ const Personal = () => {
                     <h2
                       style={{
                         textAlign: "left",
-                        color: "#FDBFDA",
+                        color: theme === "light" ? "#FDBFDA" : "#B8C9F4",
                         fontFamily: "Grandstander",
                         fontSize: "48px",
                       }}
@@ -560,7 +563,8 @@ const Personal = () => {
                                 marginLeft: "5px",
                                 marginRight: "5px",
                                 fontSize: "14px",
-                                color: "#FDBFDA",
+                                color:
+                                  theme === "light" ? "#FDBFDA" : "#B8C9F4",
                                 fontFamily: "Margarine",
                               }}
                             >
@@ -756,7 +760,8 @@ const Personal = () => {
                                   style={{
                                     fontWeight: "bold",
                                     marginBottom: "4px",
-                                    color: "#FDBFDA",
+                                    color:
+                                      theme === "light" ? "#FDBFDA" : "#B8C9F4",
                                   }}
                                 >
                                   <span>
@@ -872,7 +877,7 @@ const Personal = () => {
           className="modal_form"
         >
           <Modal.Header closeButton>
-            <Modal.Title>Followers</Modal.Title>
+            <Modal.Title>Followings</Modal.Title>
           </Modal.Header>
           <Modal.Body>
             {followingList.length > 0 ? (

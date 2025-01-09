@@ -1,0 +1,101 @@
+/* Setting.css */
+
+/* Styling the container */
+.setting-container {
+  transition: background-color 0.3s ease, color 0.3s ease;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  max-width: 80%;
+  margin: 0 auto; /* Center the container */
+  padding: 40px 20px; /* Add padding for better spacing */
+}
+
+/* Styling the card */
+.setting-container .card {
+  border: none;
+  border-radius: 15px;
+  transition: box-shadow 0.3s ease;
+  background-color: #fff;
+}
+
+.setting-container .card:hover {
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
+}
+
+/* Styling the heading */
+.setting-container h2 {
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.1);
+  text-align: center; /* Center the heading */
+}
+
+/* Form group styling */
+.setting-container .form-group {
+  margin-top: 20px;
+  padding: 10px; /* Add padding for better spacing */
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.5);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Label styling */
+.setting-container .form-label {
+  font-weight: bold;
+  font-size: 16px;
+  color: #444; /* Slightly darker for better readability */
+}
+
+/* Radio button styling */
+.setting-container .form-check {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.setting-container .form-check-input {
+  margin-right: 10px;
+  accent-color: var(--light-border); /* Use the border color for consistency */
+}
+
+.setting-container .form-check-label {
+  font-size: 14px;
+  color: #666;
+}
+
+/* Light and dark theme specific styles */
+:root {
+  --light-border: #e8e8e8;
+  --dark-border: #444;
+  --light-bg-hover: #fafafa;
+  --dark-bg-hover: #555;
+}
+
+.setting-container.light {
+  border: 1px solid var(--light-border);
+  background-color: #fdfdfd; /* Slightly lighter background */
+}
+
+.setting-container.dark {
+  border: 1px solid var(--dark-border);
+  background-color: #222; /* Darker background for contrast */
+  color: #ddd;
+}
+
+/* Responsive styles */
+@media (max-width: 768px) {
+  .setting-container {
+    padding: 20px 10px;
+  }
+
+  .setting-container h2 {
+    font-size: 24px;
+  }
+
+  .setting-container .form-label {
+    font-size: 14px;
+  }
+
+  .setting-container .form-check-label {
+    font-size: 12px;
+  }
+}

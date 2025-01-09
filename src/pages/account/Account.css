@@ -45,7 +45,6 @@
 
 h3.card_account_label {
   font-size: 30px;
-  color: #fdbfda;
 }
 
 .card_line {
@@ -187,17 +186,29 @@ button.account_btn {
   padding: 10px 20px;
   font-size: 16px;
   font-weight: bold;
-  color: #fff;
-  background-color: #fdbfda;
   border: none;
   border-radius: 5px;
   cursor: pointer;
   transition: background-color 0.3s ease, box-shadow 0.3s ease;
 }
+button.account_btn.light-theme {
+  background-color: #fdbfda;
+  color: #fff;
+}
+button.account_btn.dark-theme {
+  background-color: #b8c9f4;
+  color: #fff;
+}
 button.account_btn:hover {
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+button.account_btn.light-theme:hover {
   background-color: #fdedf5;
   color: #fdbfda;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+button.account_btn.dark-theme:hover {
+  background-color: #d7e5ff;
+  color: #b8c9f4;
 }
 button.account_btn:active {
   background-color: #e9edf6;

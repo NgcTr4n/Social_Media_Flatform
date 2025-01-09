@@ -11,6 +11,7 @@ import {
   updatePostLikes,
 } from "../../features/Account/accountSlice";
 import { auth } from "../../services/firebase";
+import { useTheme } from "../../contexts/ThemeContext";
 interface Comment {
   id: string;
   text: string;
@@ -20,6 +21,8 @@ interface Comment {
   avatar: string;
 }
 const ListPost = () => {
+  const { theme } = useTheme();
+
   const dispatch = useDispatch<AppDispatch>();
   const { account, loading, error } = useSelector(
     (state: RootState) => state.account
@@ -87,7 +90,7 @@ const ListPost = () => {
     const savedFollowState = localStorage.getItem("followState");
 
     if (savedFollowState) {
-      setFollowState(JSON.parse(savedFollowState)); // Khôi phục trạng thái follow từ localStorage
+      setFollowState(JSON.parse(savedFollowState));
     }
   }, []);
 
@@ -376,6 +379,9 @@ const ListPost = () => {
       console.error("Error adding comment:", err);
     }
   };
+  const getAccountByEmail = (email: string) => {
+    return account.find((acc) => acc.email === email);
+  };
 
   return (
     <div
@@ -429,6 +435,7 @@ const ListPost = () => {
                           color: "rgba(0, 0, 0, 0.58)",
                         }}
                       >
+                        <a href={`/accounts/${account.id}`}></a>
                         {account.username}
                       </Card.Title>
                     </div>
@@ -582,10 +589,17 @@ const ListPost = () => {
                               alignItems: "center",
                               marginBottom: 0,
                               marginLeft: "10px",
-                              color: "rgba(0, 0, 0, 0.58)",
                             }}
                           >
-                            {account.username}
+                            <a
+                              href={`/accounts/${account.id}`}
+                              style={{
+                                textDecoration: "none",
+                                color: "rgba(0, 0, 0, 0.58)",
+                              }}
+                            >
+                              {account.username}
+                            </a>
                           </Card.Title>
                         </div>
                       </Col>
@@ -609,61 +623,70 @@ const ListPost = () => {
                       </span>
                     </div>
                     <div className="comment-list" style={{}}>
-                      {post.comments?.map((comment, index) => (
-                        <div
-                          key={comment.id}
-                          className="comment-item"
-                          style={{
-                            color: "#797171",
-                            fontSize: "18px",
-                          }}
-                        >
-                          <p
-                            className="d-flex justify-content-between"
+                      {post.comments?.map((comment, index) => {
+                        const commentAccount = getAccountByEmail(comment.email);
+
+                        return (
+                          <div
+                            key={comment.id}
+                            className="comment-item"
                             style={{
-                              fontWeight: "bold",
-                              marginBottom: "4px",
-                              color: "#FDBFDA",
+                              color: "#797171",
+                              fontSize: "18px",
                             }}
                           >
-                            <span>
-                              <img
-                                src={comment.avatar}
-                                style={{
-                                  width: "30px",
-                                  height: "30px",
-                                  borderRadius: "50%",
-                                  marginRight: "10px",
-                                }}
-                              />
-                              {comment.username}{" "}
-                            </span>
-
-                            <span
+                            <p
+                              className="d-flex justify-content-between"
                               style={{
-                                fontSize: "10px",
-                                color: "#CFCFCF",
-                                fontFamily: "Margarine",
-                                fontStyle: "italic",
-                                fontWeight: "normal",
+                                fontWeight: "bold",
+                                marginBottom: "4px",
+                                color: "#FDBFDA",
                               }}
                             >
-                              {formatTimestamp(comment.timestamp)}
-                            </span>
-                          </p>
-                          <p
-                            style={{
-                              marginBottom: "4px",
-                              fontSize: "16px",
-                              color: "#CFCFCF",
-                              fontFamily: "Grandstander",
-                              marginTop: "7px",
-                            }}
-                          >
-                            {comment.content}
-                          </p>
-                        </div>
-                      ))}
+                              <span
+                                style={{
+                                  color:
+                                    theme === "light" ? "#FDBFDA" : "#B8C9F4",
+                                }}
+                              >
+                                <img
+                                  src={commentAccount?.avatar || ""}
+                                  style={{
+                                    width: "30px",
+                                    height: "30px",
+                                    borderRadius: "50%",
+                                    marginRight: "10px",
+                                  }}
+                                />
+                                {commentAccount?.username}
+                              </span>
+
+                              <span
+                                style={{
+                                  fontSize: "10px",
+                                  color: "#CFCFCF",
+                                  fontFamily: "Margarine",
+                                  fontStyle: "italic",
+                                  fontWeight: "normal",
+                                }}
+                              >
+                                {formatTimestamp(comment.timestamp)}
+                              </span>
+                            </p>
+                            <p
+                              style={{
+                                marginBottom: "4px",
+                                fontSize: "16px",
+                                color: "#CFCFCF",
+                                fontFamily: "Grandstander",
+                                marginTop: "7px",
+                              }}
+                            >
+                              {comment.content}
+                            </p>
+                          </div>
+                        );
+                      })}
                     </div>
                     <div
                       className="post_comment row"

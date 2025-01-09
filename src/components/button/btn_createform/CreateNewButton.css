@@ -5,13 +5,18 @@
 }
 div.btn-formcreate {
   text-align: center;
-  color: #fdbfda;
   text-align: center;
   font-family: Margarine;
   font-size: 14px;
   font-style: normal;
   font-weight: 400;
   line-height: normal;
+}
+div.btn-formcreate.light-theme {
+  color: #fdbfda;
+}
+div.btn-formcreate.dark-theme {
+  color: #b8c9f4;
 }
 div.btn-formcreate a {
   color: #ff8b8b;

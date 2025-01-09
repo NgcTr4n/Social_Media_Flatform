@@ -5,8 +5,15 @@
   padding-bottom: 30px;
   width: 100%;
   max-height: 150px;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+.light-theme.header {
   background: linear-gradient(180deg, #fdedf5 0.11%, #fff 77.73%);
 }
+.dark-theme.header {
+  background: linear-gradient(180deg, #f3f3ff 0.11%, #fff 77.73%);
+}
+
 .header::after {
   content: "";
   position: absolute;
@@ -24,7 +31,6 @@ button.btn-newpost {
   height: 48px;
   border-radius: 10px;
   background: #fff;
-  box-shadow: 0px 4px 4px 0px #fdbfda;
   color: #cfcfcf;
   text-align: center;
   font-family: Grandstander;
@@ -32,8 +38,15 @@ button.btn-newpost {
   font-style: normal;
   font-weight: 400;
   line-height: normal;
+  transition: box-shadow 0.3s ease;
 }
-button.btn-newpost:hover {
+.light-theme button.btn-newpost {
+  box-shadow: 0px 4px 4px 0px #fdbfda;
+}
+.dark-theme button.btn-newpost {
+  box-shadow: 0px 4px 4px 0px #b8c9f4;
+}
+.light-theme button.btn-newpost:hover {
   background-color: #f7f7f7;
   color: #797171;
 }
@@ -80,20 +93,32 @@ button.btn-newpost:hover {
 input.form-control.search-bar {
   padding-left: 50px;
   border-radius: 10px;
-  border: 1px solid #f4b2c2;
-  background-color: #fce4ec;
   color: #797171;
   font-family: var(--main-fontfamily--text);
   height: 50px;
+  transition: background-color 0.3s ease, border 0.3s ease;
 }
-
+.light-theme input.form-control.search-bar {
+  border: 1px solid #f4b2c2;
+  background-color: #fce4ec;
+}
+.dark-theme input.form-control.search-bar {
+  border: 1px solid #b8c9f4;
+  background-color: #f3f3ff;
+}
 .search-icon {
   position: absolute;
   left: 10px;
   top: 45%;
   transform: translateY(-50%);
-  color: #d47a94;
   font-size: 20px;
+  transition: color 0.3s ease;
+}
+.light-theme .search-icon {
+  color: #d47a94;
+}
+.dark-theme .search-icon {
+  color: #b8c9f4;
 }
 .search-icon img {
   width: 30px;
@@ -101,7 +126,8 @@ input.form-control.search-bar {
   border-radius: 50%;
   object-fit: cover;
 }
-ul.search-results li {
+.light-theme ul.search-results li,
+.dark-theme ul.search-results li {
   list-style: none;
   background: transparent;
   border-radius: 10px;
@@ -112,6 +138,22 @@ ul.search-results li a {
 ul.search-results li:hover {
   background: #fef9fc;
 }
-ul.search-results li a:hover {
+
+.light-theme ul.search-results li a:hover {
   color: #d47a94;
+}
+.dark-theme ul.search-results li a:hover {
+  color: #b8c9f4;
+}
+.icon-message i {
+  transition: color 0.3s ease;
+}
+
+.light-theme .icon-message i,
+.light-theme .icon-notifications i {
+  color: #fdbfda;
+}
+.dark-theme .icon-message i,
+.dark-theme .icon-notifications i {
+  color: #b8c9f4;
 }

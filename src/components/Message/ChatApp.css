@@ -2,7 +2,7 @@
 
 .chat-app {
   padding: 10px;
-  /* margin-top: 80px; */
+  margin-top: 15px;
   margin-bottom: 50px;
   display: flex;
   height: 80vh;
@@ -58,16 +58,22 @@
   align-items: center;
   margin: 10px 0;
   padding: 10px;
-  background-color: #fef9fc;
   border-radius: 10px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   border-radius: 50px;
-  color: #fdbfda;
   overflow-y: auto;
   transition: opacity 0.5s ease-out, transform 0.5s ease-out;
   transform: translateY(50px);
 
   cursor: pointer;
+}
+.contact.light-theme {
+  background: #fef9fc;
+  color: #fdbfda;
+}
+.contact.dark-theme {
+  background: #f3f3ff;
+  color: #b8c9f4;
 }
 .contact.visible {
   opacity: 1;
@@ -109,11 +115,16 @@
   font-style: normal;
   font-weight: 400;
   line-height: normal;
-  background-color: #fedeec;
 }
 .contact .avatar {
   font-size: 30px;
   margin-right: 10px;
+}
+.contact.light-theme.active {
+  background: #fedeec;
+}
+.contact.dark-theme.active {
+  background: #b8c9f4;
 }
 
 .contact .name {

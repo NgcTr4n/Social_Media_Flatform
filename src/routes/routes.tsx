@@ -11,7 +11,6 @@ import ResetPassword from "../pages/auth/ResetPassword";
 import SignIn from "../pages/auth/SignIn";
 import SignUp from "../pages/auth/Signup";
 import Personal from "../pages/personal/Personal";
-import MyAccount from "../pages/personal/MyAccount";
 
 export const router = createBrowserRouter([
   {

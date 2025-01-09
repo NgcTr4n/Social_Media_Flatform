@@ -144,19 +144,7 @@ const PostCard: React.FC = () => {
     currentUser.following?.includes(acc.id)
   );
 
-  // const accountsWithPosts = account.filter((account) => {
-  //   return (
-  //     // account.following?.includes(currentUser.id) &&
-  //     currentUser.following?.includes(account.id) &&
-  //     account.postArticle &&
-  //     account.postArticle.length > 0
-  //   );
-  // });
-  // Include posts from the current user as well
-  const accountsWithPosts = [
-    currentUser, // Include the logged-in user
-    ...followingAccounts,
-  ];
+  const accountsWithPosts = [currentUser, ...followingAccounts];
   if (accountsWithPosts.length === 0) {
     return <div>No accounts with posts available.</div>;
   }
@@ -165,7 +153,7 @@ const PostCard: React.FC = () => {
     const key = `${accountId}-${postId}`;
     setShowMenu((prevState) => ({
       ...prevState,
-      [key]: !prevState[key],
+      [key]: !prevState[key], // If the menu for this post is open, close it, otherwise open it
     }));
   };
 
@@ -296,6 +284,9 @@ const PostCard: React.FC = () => {
       post?.likes?.some((like) => like.email === currentUser?.email) || false
     );
   };
+  const getAccountByEmail = (email: string) => {
+    return account.find((acc) => acc.email === email);
+  };
   return (
     <div
       className="card mt-5 mb-3"
@@ -319,14 +310,18 @@ const PostCard: React.FC = () => {
           {account.postArticle?.map((post) => {
             const menuKey = `${account.id}-${post.id}`;
             const commentsList =
-              post.comments?.map((comment: Comment) => ({
-                id: comment.id,
-                text: comment.content,
-                username: comment.username,
-                timestamp: comment.timestamp,
-                avatar: comment.avatar || "",
-                email: comment.email,
-              })) || [];
+              post.comments?.map((comment: Comment) => {
+                // Lấy thông tin tài khoản của người bình luận
+                const commentAccount = getAccountByEmail(comment.email);
+                return {
+                  id: comment.id,
+                  text: comment.content,
+                  username: commentAccount?.username || "Unknown",
+                  avatar: commentAccount?.avatar || "",
+                  timestamp: comment.timestamp,
+                  email: comment.email,
+                };
+              }) || [];
 
             return (
               <div key={post.id} className="post">
@@ -357,9 +352,7 @@ const PostCard: React.FC = () => {
                         top: "60px",
                       }}
                     >
-                      {post.likes.some(
-                        (like) => like.email === currentUser?.email
-                      ) ? (
+                      {account.email === currentUser?.email ? (
                         <button
                           className="dropdown-item"
                           onClick={() => handleDelete(account.id, post.id)}

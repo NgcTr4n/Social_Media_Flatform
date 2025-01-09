@@ -1,5 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import logo from "../../assets/logo/logo_main.png";
+import logo2 from "../../assets/logo/logo_main_2.png";
+
 import "./Auth.css";
 import FilledButton from "../../components/button/filled_button/FilledButton";
 import { Link, useNavigate } from "react-router-dom";
@@ -15,6 +17,7 @@ import { ref, uploadBytes } from "firebase/storage";
 import ava1 from "../../assets/ava/ava1.jpg";
 import SignUp from "./Signup";
 import SignIn from "./SignIn";
+import { useTheme } from "../../contexts/ThemeContext";
 
 interface Heart {
   id: number;
@@ -26,6 +29,7 @@ interface Heart {
 }
 
 const Auth = () => {
+  const { theme } = useTheme();
   const dispatch: AppDispatch = useDispatch();
   const [showForm, setShowForm] = useState(false);
   const [logoFade, setLogoFade] = useState(false);
@@ -78,15 +82,17 @@ const Auth = () => {
   }, [isSignUp]);
 
   return (
-    <div className="signin">
+    <div
+      className={`signin ${theme === "dark" ? "dark-theme" : "light-theme"}`}
+    >
       <img
-        src={logo}
+        src={theme === "dark" ? logo2 : logo}
         alt="Logo"
         className={`logo ${logoFade ? "fade-zoom-out" : ""}`}
       />
       <div className="form-container" ref={formRef}>
         <img
-          src={logo}
+          src={theme === "dark" ? logo2 : logo}
           alt="Logo"
           className={`logo_form ${logoFade ? "fade-out" : ""}`}
         />
@@ -159,7 +165,11 @@ const Auth = () => {
               </div>
             )}
             <div className="toggle-form-container">
-              <p>
+              <p
+                style={{
+                  color: theme === "dark" ? "#B8C9F4" : "#FDBFDA",
+                }}
+              >
                 {isSignUp
                   ? "Already have an account?"
                   : "Don't have an account?"}{" "}

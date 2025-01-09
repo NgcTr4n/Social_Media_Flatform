@@ -3,10 +3,8 @@
   padding: 0;
 }
 .layout-container {
-  background: var(--BG, #f6f6f6);
   display: flex;
   flex-direction: column;
-  color: #000;
   overflow-y: hidden;
   height: 100vh;
 }

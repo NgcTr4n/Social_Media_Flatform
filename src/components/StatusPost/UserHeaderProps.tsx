@@ -1,4 +1,5 @@
 import React from "react";
+import { useTheme } from "../../contexts/ThemeContext";
 
 interface UserHeaderProps {
   id: string;
@@ -7,8 +8,14 @@ interface UserHeaderProps {
 }
 
 const UserHeader: React.FC<UserHeaderProps> = ({ avatar, username, id }) => {
+  const { theme } = useTheme();
+
   return (
-    <div className="d-flex align-items-center mb-2">
+    <div
+      className={`header-user d-flex align-items-center mb-2 ${
+        theme === "dark" ? "dark-theme" : "light-theme"
+      }`}
+    >
       <img
         src={avatar}
         alt="avatar"
@@ -21,7 +28,8 @@ const UserHeader: React.FC<UserHeaderProps> = ({ avatar, username, id }) => {
           style={{
             fontSize: "20px",
             marginLeft: "5px",
-            color: "#FDBFDA",
+            color: theme === "light" ? "#FDBFDA" : "#B8C9F4",
+
             fontWeight: 400,
             textDecoration: "none",
             fontFamily: "Grandstander",

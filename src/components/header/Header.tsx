@@ -17,6 +17,7 @@ import { auth, db, storage } from "../../services/firebase";
 import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
 import { doc, updateDoc } from "firebase/firestore";
 import { Link, useNavigate } from "react-router-dom";
+import { useTheme } from "../../contexts/ThemeContext";
 interface Account {
   id: string;
   email: string;
@@ -36,6 +37,8 @@ interface Account {
   }[];
 }
 const Header = () => {
+  const { theme } = useTheme();
+
   const dispatch: AppDispatch = useDispatch();
   const navigate = useNavigate();
   const [isHeartActive, setIsHeartActive] = useState(false);
@@ -271,7 +274,9 @@ const Header = () => {
     }
   };
   return (
-    <div className="header">
+    <div
+      className={`header ${theme === "dark" ? "dark-theme" : "light-theme"}`}
+    >
       {showComments && (
         <div className="comment-overlay">
           <div
@@ -443,7 +448,6 @@ const Header = () => {
             <i
               className="bi bi-chat-heart-fill"
               style={{
-                color: "#FDBFDA",
                 fontSize: "30px",
               }}
             ></i>
@@ -452,7 +456,6 @@ const Header = () => {
             <i
               className="bi bi-heart-fill"
               style={{
-                color: "#FDBFDA",
                 fontSize: "30px",
               }}
             ></i>

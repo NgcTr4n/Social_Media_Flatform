@@ -6,11 +6,20 @@
 }
 .btn-filled {
   border-radius: 10px;
-  background: var(--main--color--pink--1);
   color: #fff;
   font-family: var(--main--fontfamily--heading);
 }
-.btn-filled:hover {
+.light-theme .btn-filled {
+  background: var(--main--color--pink--1);
+}
+.dark-theme .btn-filled {
+  background: #b8c9f4;
+}
+.light-theme .btn-filled:hover {
   background: var(--main--color--pink--2);
   color: var(--main--color--pink--1);
+}
+.dark-theme .btn-filled:hover {
+  background: #d7e5ff;
+  color: #b8c9f4;
 }

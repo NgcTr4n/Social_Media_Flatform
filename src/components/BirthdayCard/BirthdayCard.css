@@ -12,7 +12,6 @@
   position: absolute;
   top: 0;
   right: 100px;
-  background: #fdbfda;
   width: 151px;
   height: 63px;
   display: flex;
@@ -30,6 +29,12 @@
 
   /* overflow: hidden; */
 }
+.light-theme .birthday-card-header {
+  background: #fdbfda;
+}
+.dark-theme .birthday-card-header {
+  background: #d7e5ff;
+}
 .birthday-card-header::before {
   content: "";
   width: 160px;
@@ -39,10 +44,15 @@
   left: 0;
   right: 0;
   bottom: 0;
-  background: #fdbfda;
   filter: blur(30px);
   border-radius: 50%;
   z-index: -1;
+}
+.light-theme .birthday-card-header::before {
+  background: #fdbfda;
+}
+.dark-theme .birthday-card-header::before {
+  background: #d7e5ff;
 }
 .message {
   position: absolute;
@@ -60,14 +70,18 @@
 }
 
 .highlight {
-  color: #fdbfda;
   font-family: Grandstander;
   font-size: 18px;
   font-style: normal;
   font-weight: 400;
   line-height: normal;
 }
-
+.light-theme .highlight {
+  color: #fdbfda;
+}
+.dark-theme .highlight {
+  color: #d7e5ff;
+}
 .cake-icon img {
   position: absolute;
   left: 0;
